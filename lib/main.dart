@@ -69,21 +69,14 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: Center(
-        child: IntrinsicHeight(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Expanded(child: Container(
-                color: Colors.green,
-                child: Text("111111111111111111111111111111111111111"),
-              )),
-              SizedBox(width: 10),
-              Expanded(child: Container(
-                color: Colors.green,
-                child: Text("2222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222"),
-              )),
-            ],
+      body: Container(
+        child: FractionallySizedBox(
+          // FractionallySizedBox 可以设置自己在父组件中的宽高占比
+          widthFactor: 1,
+          heightFactor: 0.25,
+          alignment: Alignment.topCenter,
+          child: Container(
+            color: Colors.red,
           ),
         ),
       ),

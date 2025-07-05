@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'dart:developer';
 
 // PopScope 不放顶级，放子组件也行
-class PopScopeSubwidget extends StatelessWidget {
-  const PopScopeSubwidget({super.key});
+class PopScopeDemo extends StatelessWidget {
+  const PopScopeDemo({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +28,8 @@ class PopScopeSubwidget extends StatelessWidget {
 }
 
 // Intrinsic 组件使用说明
-class IntrinsicHeightSubwidget extends StatelessWidget {
-  const IntrinsicHeightSubwidget({super.key});
+class IntrinsicHeightDemo extends StatelessWidget {
+  const IntrinsicHeightDemo({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,8 @@ class IntrinsicHeightSubwidget extends StatelessWidget {
             children: <Widget>[
               // Intrinsic 和 stretch 的双层效果就是，固定了 Row 的子组件有相同的高度
               // 适用于有自动换行需求，但又要统一同级组件的高度时使用。
-              // Intrinsic 可能会有性能问题，少用。最好是用 sizebox 之类的固定死高度
+              // Intrinsic 的性能开销较大,因为它需要在布局阶段计算所有子组件的高度，少用。
+              // 最好是用 sizebox 之类的固定死高度
               Expanded(child: Container(
                 color: Colors.green,
                 child: Text("111111111111111111111111111111111111111"),
@@ -58,6 +59,31 @@ class IntrinsicHeightSubwidget extends StatelessWidget {
                 child: Text("2222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222"),
               )),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// FractionallySizedBox 可以设置 child 组件在父组件中的宽高占比
+class FractionallySizedBoxDemo extends StatelessWidget {
+  const FractionallySizedBoxDemo({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(runtimeType.toString()),
+      ),
+      body: Container(
+        child: FractionallySizedBox(
+          // FractionallySizedBox 可以设置 child 在父组件中的宽高占比
+          widthFactor: 1,
+          heightFactor: 0.25,
+          alignment: Alignment.topCenter,
+          child: Container(
+            color: Colors.red,
           ),
         ),
       ),
