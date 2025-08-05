@@ -8,7 +8,8 @@ import 'package:image/image.dart' as img;
 
 // PopScope 不放顶级，放子组件也行
 class PopScopeDemo extends StatelessWidget {
-  const PopScopeDemo({super.key});
+  PopScopeDemo({super.key});
+  TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +22,10 @@ class PopScopeDemo extends StatelessWidget {
           // PopScope 不是非得套在顶层才有阻止 pop 效果，放在小部件中也行，child 最好用Container()，其他的可能导致白屏
           PopScope(canPop: false, child: Container(), onPopInvokedWithResult: (bool didPop, _) {
             log("onPopInvokedWithResult");
+            if (didPop) {
+              // StatelessWidget 里做一些释放。取巧
+              controller?.dispose();
+            }
           }),
           Text("1"),
           Text("1"),
