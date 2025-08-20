@@ -1,8 +1,10 @@
+import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:dart_pdf_reader/dart_pdf_reader.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer' show log;
+import 'dart:ui' as ui;
 
 import 'package:image/image.dart' as img;
 
@@ -154,5 +156,14 @@ Future<void> parseBarcode(PDFPageObjectNode page) async {
     width = streamObject.dictionary[PDFNames.width] as PDFNumber;
     height = streamObject.dictionary[PDFNames.height] as PDFNumber;
     // Log.d('imageData: ${imageData.length}, ${width.toInt()}, ${height.toInt()}');
+  }
+}
+
+extension UI on Uint8List {
+  // decodeImageFromList callback转异步
+  Future<ui.Image> decodeImage() async {
+    Completer completer = Completer<ui.Image>();
+    ui.decodeImageFromList(this, completer.complete);
+    return await completer.future;
   }
 }
