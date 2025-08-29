@@ -159,6 +159,14 @@ Future<void> parseBarcode(PDFPageObjectNode page) async {
   }
 }
 
+// 获取 pdf 的总页数
+Future<int> getPdfPageCount(Uint8List pdfData) async {
+  final doc = await PDFParser(ByteStream(pdfData)).parse();
+  final catalog = await doc.catalog;
+  final pages = await catalog.getPages();
+  return pages.pageCount; // 总页数
+}
+
 extension UI on Uint8List {
   // decodeImageFromList callback转异步
   Future<ui.Image> decodeImage() async {
